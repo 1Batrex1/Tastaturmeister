@@ -171,10 +171,6 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
-.gradle
+/config/config.php
+/data.db
+
