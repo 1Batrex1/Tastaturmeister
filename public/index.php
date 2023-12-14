@@ -8,30 +8,30 @@ $router = new \App\Service\Router();
 
 $action = $_REQUEST['action'] ?? null;
 switch ($action) {
-    case 'post-index':
+    case 'admin-index':
     case null:
-        $controller = new \App\Controller\PostController();
+        $controller = new \App\Controller\AdminController();
         $view = $controller->indexAction($templating, $router);
         break;
-    case 'post-create':
-        $controller = new \App\Controller\PostController();
+    case 'admin-create':
+        $controller = new \App\Controller\AdminController();
         $view = $controller->createAction($_REQUEST['post'] ?? null, $templating, $router);
         break;
-    case 'post-edit':
+    case 'admin-edit':
         if (! $_REQUEST['id']) {
             break;
         }
         $controller = new \App\Controller\PostController();
         $view = $controller->editAction($_REQUEST['id'], $_REQUEST['post'] ?? null, $templating, $router);
         break;
-    case 'post-show':
+    case 'admin-show':
         if (! $_REQUEST['id']) {
             break;
         }
         $controller = new \App\Controller\PostController();
         $view = $controller->showAction($_REQUEST['id'], $templating, $router);
         break;
-    case 'post-delete':
+    case 'admin-delete':
         if (! $_REQUEST['id']) {
             break;
         }
