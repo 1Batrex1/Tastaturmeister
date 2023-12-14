@@ -9,6 +9,10 @@ class Admin
 
     private ?int $adminId = null;
 
+    private ?string $adminName = null;
+
+
+
     private ?string $adminPassword = null;
 
     public function getAdminId(): ?int
@@ -21,6 +25,15 @@ class Admin
         $this->adminId = $adminId;
     }
 
+    public function getAdminName(): ?string
+    {
+        return $this->adminName;
+    }
+
+    public function setAdminName(?string $adminName): void
+    {
+        $this->adminName = $adminName;
+    }
     public function getAdminPassword(): ?string
     {
         return $this->adminPassword;
@@ -52,20 +65,18 @@ class Admin
     }
 
 
-    public static function find($id): ?Admin
+    public static function find($name,$password): ?Admin
     {
         $pdo = new \PDO(Config::get('db_dsn'), Config::get('db_user'), Config::get('db_pass'));
-        $sql = 'SELECT * FROM admin WHERE admin_id = :id';
+        $sql = 'SELECT * FROM admin WHERE admin_password = :password and admin_name = :name';
         $statement = $pdo->prepare($sql);
-        $statement->execute(['id' => $id]);
+        $statement->execute(['name' => $name,'password' => $password]);
 
         $adminArray = $statement->fetch(\PDO::FETCH_ASSOC);
         if (!$adminArray) {
             return null;
         }
-        $admin = Admin::fromArray($adminArray);
-
-        return $admin;
+        return Admin::fromArray($adminArray);
     }
 
     public function save(): void
@@ -79,10 +90,11 @@ class Admin
                 ':admin_password' => $this->getAdminPassword(),
             ]);
         } else {
-            $sql = "INSERT INTO admin (admin_password) VALUES (:admin_password)";
+            $sql = "INSERT INTO admin (admin_name,admin_password) VALUES (:admin_name,:admin_password)";
             $statement = $pdo->prepare($sql);
             $statement->execute([
                 ':admin_password' => $this->getAdminPassword(),
+                ':admin_name' => $this->getAdminName(),
             ]);
             $this->setAdminId((int)$pdo->lastInsertId());
         }
