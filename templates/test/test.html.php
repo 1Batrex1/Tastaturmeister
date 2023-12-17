@@ -3,9 +3,22 @@
 /** @var \App\Model\Course $course*/
 /** @var \App\Service\Router $router */
 
-$title = 'Create Post';
+$title = 'Course';
 $bodyClass = "edit";
 
+if (!isset($_COOKIE['courseProgress']))
+{
+    $coursesProgress = (new App\Model\Course)->findAll();
+    $isDoneTable = [];
+    foreach ($coursesProgress as $courseProgress)
+    {
+        $isDoneTable[$courseProgress->getCourseId()] = 0;
+    }
+
+    setcookie('courseProgress', json_encode($isDoneTable), time() + 3600);
+
+}
+echo $_COOKIE['courseProgress'];
 ob_start(); ?>
 
 <head>

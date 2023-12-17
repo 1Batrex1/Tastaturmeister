@@ -8,8 +8,12 @@ $router = new \App\Service\Router();
 
 $action = $_REQUEST['action'] ?? null;
 switch ($action) {
-    case 'admin-login':
+    case 'course-index':
     case null:
+        $controller = new \App\Controller\CourseController();
+        $view = $controller->indexAction($templating, $router);
+        break;
+    case 'admin-login':
         $controller = new \App\Controller\AdminController();
         $view = $controller->loginAction($templating, $router);
         break;
