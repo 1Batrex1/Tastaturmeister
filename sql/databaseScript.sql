@@ -7,7 +7,7 @@ CREATE TABLE admin (
 CREATE TABLE course(
     course_id SERIAL PRIMARY KEY,
     course_text VARCHAR(2000) NOT NULL
-)
+);
 
 
 INSERT INTO admin (admin_name, admin_password) VALUES ('admin', 'admin');

@@ -62,6 +62,10 @@ switch ($action) {
     default:
         $view = 'Not found';
         break;
+    case 'course-index':
+        $controller = new \App\Controller\CourseController();
+        $view = $controller->indexAction($templating, $router);
+        break;
 }
 
 if ($view) {
