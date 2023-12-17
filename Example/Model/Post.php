@@ -71,7 +71,7 @@ class Post
     public static function findAll(): array
     {
         $pdo = new \PDO(Config::get('db_dsn'), Config::get('db_user'), Config::get('db_pass'));
-        $sql = 'SELECT * FROM post';
+        $sql = 'SELECT * FROM test';
         $statement = $pdo->prepare($sql);
         $statement->execute();
 
@@ -87,7 +87,7 @@ class Post
     public static function find($id): ?Post
     {
         $pdo = new \PDO(Config::get('db_dsn'), Config::get('db_user'), Config::get('db_pass'));
-        $sql = 'SELECT * FROM post WHERE id = :id';
+        $sql = 'SELECT * FROM test WHERE id = :id';
         $statement = $pdo->prepare($sql);
         $statement->execute(['id' => $id]);
 
@@ -104,7 +104,7 @@ class Post
     {
         $pdo = new \PDO(Config::get('db_dsn'), Config::get('db_user'), Config::get('db_pass'));
         if (! $this->getId()) {
-            $sql = "INSERT INTO post (subject, content) VALUES (:subject, :content)";
+            $sql = "INSERT INTO test (subject, content) VALUES (:subject, :content)";
             $statement = $pdo->prepare($sql);
             $statement->execute([
                 'subject' => $this->getSubject(),
@@ -113,7 +113,7 @@ class Post
 
             $this->setId($pdo->lastInsertId());
         } else {
-            $sql = "UPDATE post SET subject = :subject, content = :content WHERE id = :id";
+            $sql = "UPDATE test SET subject = :subject, content = :content WHERE id = :id";
             $statement = $pdo->prepare($sql);
             $statement->execute([
                 ':subject' => $this->getSubject(),
@@ -126,7 +126,7 @@ class Post
     public function delete(): void
     {
         $pdo = new \PDO(Config::get('db_dsn'), Config::get('db_user'), Config::get('db_pass'));
-        $sql = "DELETE FROM post WHERE id = :id";
+        $sql = "DELETE FROM test WHERE id = :id";
         $statement = $pdo->prepare($sql);
         $statement->execute([
             ':id' => $this->getId(),

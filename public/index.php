@@ -15,14 +15,14 @@ switch ($action) {
         break;
     case 'admin-create':
         $controller = new \App\Controller\AdminController();
-        $view = $controller->createAction($_REQUEST['post'] ?? null, $templating, $router);
+        $view = $controller->createAction($_REQUEST['test'] ?? null, $templating, $router);
         break;
     case 'admin-edit':
         if (! $_REQUEST['id']) {
             break;
         }
         $controller = new \App\Controller\PostController();
-        $view = $controller->editAction($_REQUEST['id'], $_REQUEST['post'] ?? null, $templating, $router);
+        $view = $controller->editAction($_REQUEST['id'], $_REQUEST['test'] ?? null, $templating, $router);
         break;
     case 'admin-show':
         if (! $_REQUEST['id']) {
@@ -44,6 +44,10 @@ switch ($action) {
         break;
     default:
         $view = 'Not found';
+        break;
+    case 'course-index':
+        $controller = new \App\Controller\CourseController();
+        $view = $controller->indexAction($templating, $router);
         break;
 }
 

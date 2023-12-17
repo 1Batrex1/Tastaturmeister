@@ -11,7 +11,7 @@ class PostController
     public function indexAction(Templating $templating, Router $router): ?string
     {
         $posts = Post::findAll();
-        $html = $templating->render('post/index.html.php', [
+        $html = $templating->render('test/index.html.php', [
             'posts' => $posts,
             'router' => $router,
         ]);
@@ -25,15 +25,15 @@ class PostController
             // @todo missing validation
             $post->save();
 
-            $path = $router->generatePath('post-index');
+            $path = $router->generatePath('test-index');
             $router->redirect($path);
             return null;
         } else {
             $post = new Post();
         }
 
-        $html = $templating->render('post/create.html.php', [
-            'post' => $post,
+        $html = $templating->render('test/create.html.php', [
+            'test' => $post,
             'router' => $router,
         ]);
         return $html;
@@ -43,7 +43,7 @@ class PostController
     {
         $post = Post::find($postId);
         if (! $post) {
-            throw new NotFoundException("Missing post with id $postId");
+            throw new NotFoundException("Missing test with id $postId");
         }
 
         if ($requestPost) {
@@ -51,13 +51,13 @@ class PostController
             // @todo missing validation
             $post->save();
 
-            $path = $router->generatePath('post-index');
+            $path = $router->generatePath('test-index');
             $router->redirect($path);
             return null;
         }
 
-        $html = $templating->render('post/edit.html.php', [
-            'post' => $post,
+        $html = $templating->render('test/edit.html.php', [
+            'test' => $post,
             'router' => $router,
         ]);
         return $html;
@@ -67,11 +67,11 @@ class PostController
     {
         $post = Post::find($postId);
         if (! $post) {
-            throw new NotFoundException("Missing post with id $postId");
+            throw new NotFoundException("Missing test with id $postId");
         }
 
-        $html = $templating->render('post/show.html.php', [
-            'post' => $post,
+        $html = $templating->render('test/show.html.php', [
+            'test' => $post,
             'router' => $router,
         ]);
         return $html;
@@ -81,11 +81,11 @@ class PostController
     {
         $post = Post::find($postId);
         if (! $post) {
-            throw new NotFoundException("Missing post with id $postId");
+            throw new NotFoundException("Missing test with id $postId");
         }
 
         $post->delete();
-        $path = $router->generatePath('post-index');
+        $path = $router->generatePath('test-index');
         $router->redirect($path);
         return null;
     }
