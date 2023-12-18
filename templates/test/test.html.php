@@ -211,6 +211,7 @@ ob_start(); ?>
     const output = document.getElementById('shown-key');
     const input = document.getElementById('text-input');
     const text = document.getElementById('text');
+    const keys = document.querySelectorAll('.key');
 
 
 
@@ -219,6 +220,27 @@ ob_start(); ?>
         output.style.color = 'red';
         output.innerText = outputMessage;
     });
+
+    document.addEventListener('keydown', highlightKey);
+    document.addEventListener('keyup', unhighlightKey);
+
+    function highlightKey(event) {
+        const pressedKey = event.key.toUpperCase();
+        keys.forEach(keyElement => {
+            if (keyElement.innerText === pressedKey) {
+                keyElement.classList.add('pressed');
+            }
+        });
+    }
+
+    function unhighlightKey(event) {
+        const releasedKey = event.key.toUpperCase();
+        keys.forEach(keyElement => {
+            if (keyElement.innerText === releasedKey) {
+                keyElement.classList.remove('pressed');
+            }
+        });
+    }
 
 
 
