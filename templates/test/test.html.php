@@ -35,73 +35,73 @@ ob_start(); ?>
         lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.
     </div>
     <br>
-    <textarea id="text-input" type="text" placeholder="Insert text here"></textarea>
+    <textarea id="text-input" type="text" placeholder="Wpisuj tutaj..."></textarea>
 
     <br>
     <p id='shown-key'>No key detected</p>
 
     <div class="keyboard">
-        <div class="key 1">1</div>
-        <div class="key">2</div>
-        <div class="key">3</div>
-        <div class="key">4</div>
-        <div class="key">5</div>
-        <div class="key">6</div>
-        <div class="key">7</div>
-        <div class="key">8</div>
-        <div class="key">9</div>
-        <div class="key">0</div>
-        <div class="key">-</div>
-        <div class="key">+</div>
-        <div class="key delete">Delete</div>
-        <div class="key tab">Tab</div>
-        <div class="key">Q</div>
-        <div class="key">w</div>
-        <div class="key">E</div>
-        <div class="key">R</div>
-        <div class="key">T</div>
-        <div class="key">Y</div>
-        <div class="key">U</div>
-        <div class="key">I</div>
-        <div class="key">O</div>
-        <div class="key">P</div>
-        <div class="key">[</div>
-        <div class="key">]</div>
-        <div class="key">\</div>
-        <div class="key capslock">CapsLock</div>
-        <div class="key">A</div>
-        <div class="key">S</div>
-        <div class="key">D</div>
-        <div class="key">F</div>
-        <div class="key">G</div>
-        <div class="key">H</div>
-        <div class="key">J</div>
-        <div class="key">K</div>
-        <div class="key">L</div>
-        <div class="key">;</div>
-        <div class="key">'</div>
-        <div class="key return">Enter</div>
-        <div class="key shift">Shift</div>
-        <div class="key">Z</div>
-        <div class="key">X</div>
-        <div class="key">C</div>
-        <div class="key">V</div>
-        <div class="key">B</div>
-        <div class="key">N</div>
-        <div class="key">M</div>
-        <div class="key">,</div>
-        <div class="key">.</div>
-        <div class="key">/</div>
-        <div class="key">↑</div>
-        <div class="key shift">Shift</div>
-        <div class="key ctrl">Ctrl</div>
-        <div class="key alt">Alt</div>
-        <div class="key space">Space</div>
-        <div class="key alt">Alt</div>
-        <div class="key ctrl">Ctrl</div>
-        <div class="key">←</div>
-        <div class="key">↓</div>
-        <div class="key">→</div>
+        <div class="key left_small">1</div>
+        <div class="key left_small">2</div>
+        <div class="key left_ring">3</div>
+        <div class="key left_middle">4</div>
+        <div class="key left_pointing">5</div>
+        <div class="key left_pointing">6</div>
+        <div class="key right_pointing">7</div>
+        <div class="key right_pointing">8</div>
+        <div class="key right_middle">9</div>
+        <div class="key right_ring">0</div>
+        <div class="key right_small">-</div>
+        <div class="key right_small">+</div>
+        <div class="key right_small delete">Delete</div>
+        <div class="key left_small tab">Tab</div>
+        <div class="key left_small">Q</div>
+        <div class="key left_ring">W</div>
+        <div class="key left_middle">E</div>
+        <div class="key left_pointing">R</div>
+        <div class="key left_pointing">T</div>
+        <div class="key right_pointing">Y</div>
+        <div class="key right_pointing">U</div>
+        <div class="key right_middle">I</div>
+        <div class="key right_ring">O</div>
+        <div class="key right_small">P</div>
+        <div class="key right_small">[</div>
+        <div class="key right_small">]</div>
+        <div class="key right_small">\</div>
+        <div class="key left_small capslock">CapsLock</div>
+        <div class="key left_small">A</div>
+        <div class="key left_ring">S</div>
+        <div class="key left_middle">D</div>
+        <div class="key left_pointing">F</div>
+        <div class="key left_pointing">G</div>
+        <div class="key right_pointing">H</div>
+        <div class="key right_pointing">J</div>
+        <div class="key right_middle">K</div>
+        <div class="key right_ring">L</div>
+        <div class="key right_small">;</div>
+        <div class="key right_small">'</div>
+        <div class="key right_small return">Enter</div>
+        <div class="key left_small shift">Shift</div>
+        <div class="key left_small">Z</div>
+        <div class="key left_ring">X</div>
+        <div class="key left_middle">C</div>
+        <div class="key left_pointing">V</div>
+        <div class="key left_pointing">B</div>
+        <div class="key right_pointing">N</div>
+        <div class="key right_pointing">M</div>
+        <div class="key right_middle">,</div>
+        <div class="key right_ring">.</div>
+        <div class="key right_small">/</div>
+        <div class="key right_small">↑</div>
+        <div class="key right_small shift">Shift</div>
+        <div class="key left_small ctrl">Ctrl</div>
+        <div class="key thumb alt">Alt</div>
+        <div class="key thumb space">Space</div>
+        <div class="key thumb alt">Alt</div>
+        <div class="key right_middle ctrl">Ctrl</div>
+        <div class="key right_small">←</div>
+        <div class="key right_small">↓</div>
+        <div class="key right_small">→</div>
 
     </div>
 
@@ -123,9 +123,13 @@ ob_start(); ?>
     }
 
     textarea {
-        width: 300px;
+        width: 1000px;
         height: 100px;
         margin-bottom: 10px;
+        border: 2px solid #8B4513;
+        border-radius: 10px;
+        background-color: #ecf0f1;
+
     }
 
     div {
@@ -134,13 +138,15 @@ ob_start(); ?>
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         background-color: #ecf0f1;
+
     }
 
     .keyboard {
         display: grid;
         grid-template-columns: repeat(15, 1fr);
-        grid-gap: 5px;
+        grid-gap: 8px;
         margin-top: 20px;
+
     }
 
     .key {
@@ -148,10 +154,11 @@ ob_start(); ?>
         align-items: center;
         justify-content: center;
         height: 40px;
-        border: 1px solid #ccc;
+        border: 2px solid grey;
         border-radius: 5px;
         background-color: #fff;
         font-size: 14px;
+
     }
 
     .key.delete {
@@ -165,8 +172,38 @@ ob_start(); ?>
     .key.space {
         grid-column: span 5;
     }
+    .key.left_small{
+        background-color: #fff69b;
+    }
+    .key.left_ring{
+        background-color: yellowgreen;
+    }
+    .key.left_middle{
+        background-color: coral;
+    }
+    .key.left_pointing{
+        background-color: lightsteelblue;
+    }
 
+    .key.right_small{
+        background-color: lightyellow;
+    }
+    .key.right_ring{
+        background-color: lightgreen;
+    }
+    .key.right_middle{
+        background-color: lightsalmon;
+    }
+    .key.right_pointing{
+        background-color: lightblue;
+    }
+    .key.thumb{
+        background-color: violet;
+    }
 
+    .key.pressed {
+        background-color: white;
+    }
 </style>
 
 
