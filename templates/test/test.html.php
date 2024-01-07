@@ -154,7 +154,7 @@ ob_start(); ?>
         align-items: center;
         justify-content: center;
         height: 40px;
-        border: 2px solid grey;
+        border: 3px solid grey;
         border-radius: 5px;
         background-color: #fff;
         font-size: 14px;

@@ -29,8 +29,9 @@ class AdminController
     {
         $admin = Admin::find($name,$password);
         if ($admin) {
-            setcookie('admin', "admin", time() + 3600);
+            $_SESSION['uid'] = $admin->getAdminId();
             $path = $router->generatePath('admin-index');
+
         }
         else {
             $path = $router->generatePath('admin-login');
@@ -42,6 +43,8 @@ class AdminController
 
     public function logoutAction(Templating $templating, Router $router): ?string
     {
+        session_unset();
+        session_destroy();
         $html = $templating->render('admin/adminLogout.html.php', [
             'router' => $router,
         ]);

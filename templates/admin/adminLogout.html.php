@@ -3,7 +3,6 @@
 
 $title = 'Admin Panel';
 $bodyClass = 'index';
-setcookie('admin', '', time() - 3600);
 ob_start(); ?>
     <h1>Admin Logout</h1>
     <p>Successfully logged out from Admin Panel.</p>

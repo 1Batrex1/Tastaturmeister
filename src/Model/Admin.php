@@ -65,6 +65,21 @@ class Admin
     }
 
 
+    public static function findById(int $id): ?Admin
+    {
+        $pdo = new \PDO(Config::get('db_dsn'), Config::get('db_user'), Config::get('db_pass'));
+        $sql = 'SELECT * FROM admin WHERE admin_id = :id';
+        $statement = $pdo->prepare($sql);
+        $statement->execute(['id' => $id]);
+
+        $adminArray = $statement->fetch(\PDO::FETCH_ASSOC);
+        if (!$adminArray) {
+            return null;
+        }
+        return Admin::fromArray($adminArray);
+    }
+
+
     public static function find($name,$password): ?Admin
     {
         $pdo = new \PDO(Config::get('db_dsn'), Config::get('db_user'), Config::get('db_pass'));

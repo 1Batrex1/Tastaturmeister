@@ -1,10 +1,19 @@
 <?php
 require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'autoload.php';
 
+session_start();
+
 $config = new \App\Service\Config();
 
 $templating = new \App\Service\Templating();
 $router = new \App\Service\Router();
+
+$userId = $_SESSION['uid'] ?? null;
+if ($userId) {
+    $user = \App\Model\Admin::findById($userId);
+} else {
+    $user = null;
+}
 
 $action = $_REQUEST['action'] ?? null;
 switch ($action) {
@@ -74,4 +83,7 @@ switch ($action) {
 
 if ($view) {
     echo $view;
+}
+if ($user) {
+    echo "<pre>" . $user->getAdminId() . "</pre>";
 }

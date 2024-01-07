@@ -1,11 +1,6 @@
 <?php
 /** @var \App\Service\Router $router */
 
-if (isset($_COOKIE['admin'])) {
-    $path = $router->generatePath('admin-index');
-    $router->redirect($path);
-}
-
 $title = 'Admin Panel';
 $bodyClass = 'index';
 
