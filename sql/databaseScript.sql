@@ -1,11 +1,11 @@
 CREATE TABLE admin (
-    admin_id SERIAL PRIMARY KEY,
+    admin_id PRIMARY KEY AUTOINCREMENT,
     admin_name VARCHAR(200) NOT NULL,
     admin_password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE course(
-    course_id SERIAL PRIMARY KEY,
+    course_id PRIMARY KEY AUTOINCREMENT,
     course_text VARCHAR(2000) NOT NULL
 );
 
