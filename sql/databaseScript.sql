@@ -10,7 +10,7 @@ CREATE TABLE course(
 );
 
 
-INSERT INTO admin (admin_name, admin_password) VALUES ('admin', 'admin');
+INSERT INTO admin (admin_id,admin_name, admin_password) VALUES (1,'admin', 'admin');
 INSERT INTO course (course_text) VALUES ('This is a simple text to train ' ||
                                          'fast typing on keyboard ' ||
                                          'goodluck mate');

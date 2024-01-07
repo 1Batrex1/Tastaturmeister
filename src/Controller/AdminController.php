@@ -11,6 +11,14 @@ class AdminController
 
     public function indexAction(Templating $templating, Router $router): ?string
     {
+        if (!isset($_SESSION['uid']))
+        {
+            $html = $templating->render('admin/adminLogin.html.php', [
+                'router' => $router,
+            ]);
+            return $html;
+
+        }
         $html = $templating->render('admin/index.html.php', [
             'router' => $router,
         ]);
@@ -19,6 +27,17 @@ class AdminController
 
     public function loginAction(Templating $templating, Router $router): ?string
     {
+        /** @var $user Admin */
+        global $user;
+
+        if($user != null)
+        {
+            if ($user->getAdminId() != null) {
+                $_SESSION['uid'] = $user->getAdminId();
+                $path = $router->generatePath('admin-index');
+                $router->redirect($path);
+            }
+        }
         $html = $templating->render('admin/adminLogin.html.php', [
             'router' => $router,
         ]);

@@ -46,21 +46,23 @@ class Admin
 
     public function fill($array): Admin
     {
-        if (isset($array['admin_id']) && !$this->getAdminId()) {
+        if (isset($array['admin_id'])) {
             $this->setAdminId($array['admin_id']);
         }
-        if (isset($array['admin_password']) && !$this->getAdminPassword()) {
+        if (isset($array['admin_password'])) {
             $this->setAdminPassword($array['admin_password']);
         }
-
+        if (isset($array['admin_name']))
+        {
+            $this->setAdminName($array['admin_name']);
+        }
         return $this;
     }
 
     public static function fromArray($array): Admin
     {
-        $admin = new self();
+        $admin = new Admin();
         $admin->fill($array);
-
         return $admin;
     }
 
