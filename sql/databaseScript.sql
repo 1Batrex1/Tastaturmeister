@@ -1,5 +1,5 @@
 CREATE TABLE admin (
-    admin_id PRIMARY KEY AUTOINCREMENT,
+    admin_id INTEGER PRIMARY KEY AUTOINCREMENT,
     admin_name VARCHAR(200) NOT NULL,
     admin_password VARCHAR(255) NOT NULL
 );

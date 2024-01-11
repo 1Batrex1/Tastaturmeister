@@ -84,6 +84,6 @@ switch ($action) {
 if ($view) {
     echo $view;
 }
-if ($user) {
-    echo "<pre>" . $user->getAdminId() . "</pre>";
-}
+//if ($user) {
+//    echo "<pre>" . $user->getAdminId() . "</pre>";
+//}

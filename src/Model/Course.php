@@ -102,4 +102,29 @@ class Course
         }
 
     }
+
+    public function delete(): void
+    {
+        $pdo = new \PDO(Config::get('db_dsn'), Config::get('db_user'), Config::get('db_pass'));
+        $sql = "DELETE FROM course WHERE course_id = :course_id ";
+        $statement = $pdo->prepare($sql);
+        $statement->execute([
+            ':course_id' => $this->getCourseId()
+        ]);
+    }
+
+    public function update(): void
+    {
+        $pdo = new \PDO(Config::get('db_dsn'), Config::get('db_user'), Config::get('db_pass'));
+        if ($this->getCourseId()) {
+            $sql = "UPDATE course SET course_text = :course_text, course_name = :course_name, course_difficulty = :course_difficulty WHERE course_id = :course_id";
+            $statement = $pdo->prepare($sql);
+            $statement->execute([
+                ':course_id' => $this->getCourseId(),
+                ':course_text' => $this->getCourseText(),
+                ':course_name' => $this->getCourseName(),
+                ':course_difficulty' => $this->getCourseDifficulty()
+            ]);
+        }
+    }
 }

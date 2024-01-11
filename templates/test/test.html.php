@@ -52,7 +52,7 @@ ob_start(); ?>
         <div class="key right_middle">9</div>
         <div class="key right_ring">0</div>
         <div class="key right_small">-</div>
-        <div class="key right_small">+</div>
+        <div class="key right_small">=</div>
         <div class="key right_small delete">Delete</div>
         <div class="key left_small tab">Tab</div>
         <div class="key left_small">Q</div>
@@ -77,7 +77,7 @@ ob_start(); ?>
         <div class="key right_pointing">H</div>
         <div class="key right_pointing">J</div>
         <div class="key right_middle">K</div>
-        <div class="key right_ring">L</div>
+        <div class="key right_ring toPress">L</div>
         <div class="key right_small">;</div>
         <div class="key right_small">'</div>
         <div class="key right_small return">Enter</div>
@@ -146,6 +146,8 @@ ob_start(); ?>
         grid-template-columns: repeat(15, 1fr);
         grid-gap: 8px;
         margin-top: 20px;
+        margin-bottom: 20px;
+        margin-right: -20px;
 
     }
 
@@ -202,7 +204,8 @@ ob_start(); ?>
     }
 
     .key.pressed {
-        background-color: white;
+        background-color: black;
+        color: white;
     }
 </style>
 
@@ -212,6 +215,11 @@ ob_start(); ?>
     const input = document.getElementById('text-input');
     const text = document.getElementById('text');
     const keys = document.querySelectorAll('.key');
+    const body = document.querySelector('body')
+
+    input.addEventListener('markButton', () => {
+
+    });
 
 
 
@@ -224,8 +232,64 @@ ob_start(); ?>
     document.addEventListener('keydown', highlightKey);
     document.addEventListener('keyup', unhighlightKey);
 
+
+    if (!document.hasFocus()) {
+        removePressedClass();
+    }
+
+
+    function removePressedClass() {
+        keys.forEach(function(key) {
+            key.classList.remove('pressed');
+        });
+    }
+
+
+
     function highlightKey(event) {
-        const pressedKey = event.key.toUpperCase();
+        let pressedKey;
+        if (event.key) {
+            pressedKey = event.key.toUpperCase();
+        }
+        if (event.code === 'Space') {
+            pressedKey = 'Space';
+        }
+        if (event.code === 'Tab') {
+            pressedKey = 'Tab';
+        }
+        if (event.code === 'CapsLock') {
+            pressedKey = 'CapsLock';
+        }
+        if (event.code === 'Enter') {
+            pressedKey = 'Enter';
+        }
+        if (event.key === 'Shift') {
+            pressedKey = 'Shift';
+        }
+        if (event.key === 'ArrowUp') {
+            pressedKey = '↑';
+        }
+        if (event.key === 'ArrowDown') {
+            pressedKey = '↓';
+        }
+        if (event.key === 'ArrowLeft') {
+            pressedKey = '←';
+        }
+        if (event.key === 'ArrowRight') {
+            pressedKey = '→';
+        }
+        if (event.key === 'Backspace') {
+            pressedKey = 'Delete';
+        }
+        if (event.key === 'Control') {
+            pressedKey = 'Ctrl';
+        }
+        if (event.key === 'Alt') {
+            pressedKey = 'Alt';
+        }
+
+
+
         keys.forEach(keyElement => {
             if (keyElement.innerText === pressedKey) {
                 keyElement.classList.add('pressed');
@@ -234,7 +298,53 @@ ob_start(); ?>
     }
 
     function unhighlightKey(event) {
-        const releasedKey = event.key.toUpperCase();
+        let releasedKey;
+        if(event.code === 'ControlLeft' || event.code === 'ControlRight') {
+            releasedKey = 'Ctrl';
+        }
+        if (event.key) {
+            releasedKey = event.key.toUpperCase();
+        }
+        if (event.altKey) {
+            releasedKey = 'Alt';
+        }
+        if (event.code === 'Space') {
+            releasedKey = 'Space';
+        }
+        if (event.code === 'Tab') {
+            releasedKey = 'Tab';
+        }
+        if (event.code === 'CapsLock') {
+            releasedKey = 'CapsLock';
+        }
+        if (event.code === 'Enter') {
+            releasedKey = 'Enter';
+        }
+        if (event.key === 'Shift') {
+            releasedKey = 'Shift';
+        }
+        if (event.key === 'ArrowUp') {
+            releasedKey = '↑';
+        }
+        if (event.key === 'ArrowDown') {
+            releasedKey = '↓';
+        }
+        if (event.key === 'ArrowLeft') {
+            releasedKey = '←';
+        }
+        if (event.key === 'ArrowRight') {
+            releasedKey = '→';
+        }
+        if (event.key === 'Backspace') {
+            releasedKey = 'Delete';
+        }
+        if (event.key === 'Control') {
+            releasedKey = 'Ctrl';
+        }
+        if (event.key === 'Alt') {
+            releasedKey = 'Alt';
+        }
+
         keys.forEach(keyElement => {
             if (keyElement.innerText === releasedKey) {
                 keyElement.classList.remove('pressed');
