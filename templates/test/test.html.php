@@ -18,7 +18,6 @@ if (!isset($_COOKIE['courseProgress']))
     setcookie('courseProgress', json_encode($isDoneTable), time() + 3600);
 
 }
-echo $_COOKIE['courseProgress'];
 ob_start(); ?>
 
 <head>

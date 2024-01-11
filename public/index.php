@@ -72,13 +72,27 @@ switch ($action) {
         $controller = new \App\Controller\InfoController();
         $view = $controller->infoAction();
         break;
+    case 'courses-index':
+        $controller = new \App\Controller\CourseController();
+        $view = $controller->showAction($templating,$router);
+        break;
+    case 'course-create':
+        $controller = new \App\Controller\CourseController();
+        $view = $controller->createAction($_REQUEST['course'] ?? null,$templating,$router);
+        break;
+    case 'course-delete':
+        $controller = new \App\Controller\CourseController();
+        $view = $controller->deleteAction($_REQUEST['id'] ?? null,$templating,$router);
+        break;
+    case 'course-edit':
+        $controller = new \App\Controller\CourseController();
+        $view = $controller->editAction($_REQUEST['course'] ?? null, $templating, $router);
+
     default:
         $view = 'Not found';
         break;
-    case 'course-index':
-        $controller = new \App\Controller\CourseController();
-        $view = $controller->indexAction($templating, $router);
-        break;
+
+
 }
 
 if ($view) {

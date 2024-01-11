@@ -5,13 +5,16 @@ CREATE TABLE admin (
 );
 
 CREATE TABLE course(
-    course_id PRIMARY KEY AUTOINCREMENT,
-    course_text VARCHAR(2000) NOT NULL
+    course_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    course_name VARCHAR(255) NOT NULL ,
+    course_text VARCHAR(2000) NOT NULL,
+    course_difficulty INT NOT NULL
+
 );
 
 
 INSERT INTO admin (admin_id,admin_name, admin_password) VALUES (1,'admin', 'admin');
-INSERT INTO course (course_text) VALUES ('This is a simple text to train ' ||
+INSERT INTO course (course_id,course_name,course_text,course_difficulty) VALUES (1,'Test course','This is a simple text to train ' ||
                                          'fast typing on keyboard ' ||
-                                         'goodluck mate');
+                                         'goodluck mate',1);
 
