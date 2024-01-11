@@ -104,6 +104,13 @@ ob_start(); ?>
 
     </div>
 
+    <div id="imageContainer" >
+        <img id="backgroundImage" src="assets/src/pic/tarcza.png" alt="Tło" style="width: 100%; height: 100%;">
+        <img id="overlayImage" src="assets/src/pic/wskazowka.png" alt="Wskazówka" style="width: 100%; height: 100%;">
+    </div>
+
+
+
 </body>
 
 <style>
@@ -206,6 +213,48 @@ ob_start(); ?>
         background-color: black;
         color: white;
     }
+
+    .key.toPress {
+        background-color: white;
+        color: black;
+    }
+
+    /*prędkościomierz */
+
+    #speedometer {
+        width: 100px;
+        height: 50px;
+        background-color: #3498db;
+        position: relative;
+        transition: left 0.2s ease;
+    }
+    #imageContainer {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        margin-top: 20px;
+    }
+
+    #backgroundImage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #overlayImage {
+        position: absolute;
+        top: 10px;
+        left: 2px;
+        width: 100%;
+        height: 100%;
+        transform: rotate(150deg);
+        /*transition: transform 0.5s ease;*/
+
+    }
+
+
 </style>
 
 
@@ -351,7 +400,42 @@ ob_start(); ?>
         });
     }
 
+    /*prędkościomierz*/
 
+    let totalRotation = 150; //Początkowa rotacja
+    const rotationInterval = 10; // Co ile milisekundobniżać kąt
+    const rotationAmount = 1; // O ile stopni obniżać kąt przykażdym interwal
+    const minRotation = 150; // Minimalny kąt obrotu
+    const maxRotation = 375; // Maksymalny kąt obrotu
+    const overlayImage = document.getElementById('overlayImage');
+
+    document.addEventListener('keydown', function() {
+        rotateOverlayImage();
+    });
+
+    setInterval(function() {
+        autoRotateOverlayImage();
+    }, rotationInterval);
+
+    function rotateOverlayImage() {
+        totalRotation += 20; // Dodaj 20 stopni przy każdym naciśnięciu (możesz dostosować)
+        checkBounds();
+        overlayImage.style.transform = `rotate(${totalRotation}deg)`;
+    }
+
+    function autoRotateOverlayImage() {
+        totalRotation -= rotationAmount; // Odejmij kąt obrotu
+        checkBounds();
+        overlayImage.style.transform = `rotate(${totalRotation}deg)`;
+    }
+
+    function checkBounds() {
+        if (totalRotation < minRotation) {
+            totalRotation = minRotation;
+        } else if (totalRotation > maxRotation) {
+            totalRotation = maxRotation;
+        }
+    }
 
 </script>
 
