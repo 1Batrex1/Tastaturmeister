@@ -86,8 +86,16 @@ switch ($action) {
         break;
     case 'course-edit':
         $controller = new \App\Controller\CourseController();
-        $view = $controller->editAction($_REQUEST['course'] ?? null, $templating, $router);
-
+        $view = $controller->editAction($templating, $router);
+        break;
+    case 'course-edit-form':
+        $controller = new \App\Controller\CourseController();
+        $view = $controller->editActionForm($_REQUEST['id'],$templating, $router);
+        break;
+    case 'course-train':
+        $controller = new App\Controller\CourseController();
+        $view = $controller->trainAction($_REQUEST['id'],$templating,$router);
+        break;
     default:
         $view = 'Not found';
         break;

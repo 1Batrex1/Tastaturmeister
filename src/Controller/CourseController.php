@@ -19,9 +19,6 @@ class CourseController
 
     public function indexAction(Templating $templating, Router $router): ?string
     {
-//        /** @var $user Admin */
-//global $user;
-//die("My name is {$user->getAdminId()}");
         $html = $templating->render('test/test.html.php', [
 
             'router' => $router,
@@ -60,6 +57,8 @@ class CourseController
         ]);
         return $html;
     }
+
+
     
     public function deleteAction(?int $courseId,Templating  $templating,Router $router) : ?string
     {
@@ -80,22 +79,9 @@ class CourseController
         return  $html;
     }
 
-    public function editAction(?array $requestCourse, Templating $templating, Router $router): ?string
+    public function editAction(Templating $templating, Router $router): ?string
     {
-        if ($requestCourse && isset($requestCourse['course']['id'])) {
-            $course = Course::find($requestCourse['course']['id']);
-        } else {
-            return null;
-        }
-
-        if ($requestCourse) {
-            $course->fill($requestCourse['course']);
-            $course->update();
-
-            $path = $router->generatePath('admin-index');
-            $router->redirect($path);
-            return null;
-        }
+        $courses = (new \App\Model\Course)->findAll();
 
         $html = $templating->render('course/edit.html.php', [
             'courses' => $courses,
@@ -103,6 +89,29 @@ class CourseController
         ]);
         return $html;
     }
+
+    public function editActionForm(int $id,Templating $templating, Router $router): ?string
+    {
+        $course = (new \App\Model\Course)->find($id);
+
+        $html = $templating->render('course/edit_form.html.php', [
+            'course' => $course,
+            'router' => $router,
+        ]);
+        return $html;
+    }
+
+    public function trainAction(int $id,Templating $templating,Router  $router): ?string
+    {
+        $course = (new \App\Model\Course)->find($id);
+
+        $html = $templating->render('test/test.html.php', [
+            'course' => $course,
+            'router' => $router,
+        ]);
+        return $html;
+    }
+
 
 
 

@@ -257,6 +257,7 @@ ob_start(); ?>
     }
 
 
+
 </style>
 
 
@@ -265,19 +266,98 @@ ob_start(); ?>
     const input = document.getElementById('text-input');
     const text = document.getElementById('text');
     const keys = document.querySelectorAll('.key');
-    const body = document.querySelector('body')
+    const body = document.querySelector('body');
 
     input.addEventListener('markButton', () => {
 
     });
+    let accuracy = 0;
+    let counter  = 0;
+    let goodclicked = 0;
+    let proxyCounter = {counter};
+
+    window.onload = (event) => {
+        keys.forEach(keyElement => {
+            if (keyElement.innerText === text.innerText[0].toUpperCase()) {
+                keyElement.classList.add('toPress');
+            }
+        });
+
+    };
+
+    const proxiedObject = new Proxy(proxyCounter, {
+        set: function (target, key, value) {
+            target[key] = value;
+            if (proxyCounter.counter >= text.innerText.length)
+            {
+                keys.forEach(keyElement => {
+                        keyElement.classList.remove('toPress');
+
+                });
+
+                return true
+            }
+            let output = "";
+            let output2 = "";
+
+            if (text.innerText[proxyCounter.counter-1] === ' ')
+            {
+
+                output2 = 'Space';
+            }
+            else{
+                output2 = text.innerText[proxyCounter.counter-1].toUpperCase();
+
+            }
+            if (text.innerText[proxyCounter.counter] === ' ')
+            {
+
+                output = 'Space';
+            }
+            else
+            {
+                output = text.innerText[proxyCounter.counter].toUpperCase();
+            }
+            keys.forEach(keyElement => {
+                if (keyElement.innerText === output2) {
+                    keyElement.classList.remove('toPress');
+                }
+            });
+            keys.forEach(keyElement => {
+                if (keyElement.innerText === output) {
+                    keyElement.classList.add('toPress');
+                }
+            });
+            return true;
+        },
+    });
+
 
 
 
     input.addEventListener('keyup', (event) => {
-        const outputMessage = `${event.key} was pressed`;
-        output.style.color = 'red';
-        output.innerText = outputMessage;
+
+        if (event.key === "Backspace" || event.key === "Shift")
+        {
+            return;
+        }
+        proxiedObject.counter = counter + 1;
+
+        if (counter >= text.innerText.length)
+        {
+            accuracy = goodclicked / text.innerText.length;
+            console.log(`Accuracy:${accuracy}`);
+            return;
+        }
+        if (event.key === text.innerText[counter])
+        {
+            goodclicked++;
+        }
+        counter ++;
+
     });
+
+
 
     document.addEventListener('keydown', highlightKey);
     document.addEventListener('keyup', unhighlightKey);

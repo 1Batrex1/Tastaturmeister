@@ -3,11 +3,11 @@
 /** @var \App\Model\Course $courses */
 /** @var \App\Service\Router $router */
 
-$title = 'Choice Course';
+$title = 'Choose Course';
 $bodyClass = "edit";
 
 ob_start(); ?>
-    <h1>Delete Course</h1>
+    <h1>Choose Course</h1>
     <ul>
 
         <?php foreach ($courses as $course): ?>
