@@ -98,7 +98,7 @@ class CourseController
         }
 
         $html = $templating->render('course/edit.html.php', [
-            'course' => $course,
+            'courses' => $courses,
             'router' => $router,
         ]);
         return $html;

@@ -56,7 +56,7 @@ class PostController
             return null;
         }
 
-        $html = $templating->render('test/edit.html.php', [
+        $html = $templating->render('test/edit_form.html.php', [
             'test' => $post,
             'router' => $router,
         ]);

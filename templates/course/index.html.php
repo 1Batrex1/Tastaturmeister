@@ -11,14 +11,14 @@ ob_start(); ?>
     <ul>
 
         <?php foreach ($courses as $course): ?>
-            <li>
+            <ul>
+                <li>
+                    <a href="<?= $router->generatePath('course-train', ['id' => $course->getCourseId()]) ?>">
+                        <?= $course->getCourseName()?>
+                    </a>
+                </li>
 
-                <form action="<?= $router->generatePath('course-show') ?>" method="post">
-                    <p> <?= $course->getCourseName()?> </p>
-                    <p <?= $course->getCourseDifficulty()?>></p>
-                </form>
-
-            </li>
+            </ul>
         <?php endforeach ?>
 
     </ul>

@@ -18,6 +18,7 @@ if (!isset($_COOKIE['courseProgress']))
     setcookie('courseProgress', json_encode($isDoneTable), time() + 3600);
 
 }
+
 ob_start(); ?>
 
 <head>
@@ -30,9 +31,8 @@ ob_start(); ?>
     </h1>
 
 
-    <div id="text">
-        lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.
-    </div>
+
+    <div id="text"><?= $course->getCourseText()?></div>
     <br>
     <textarea id="text-input" type="text" placeholder="Wpisuj tutaj..."></textarea>
 
@@ -76,7 +76,7 @@ ob_start(); ?>
         <div class="key right_pointing">H</div>
         <div class="key right_pointing">J</div>
         <div class="key right_middle">K</div>
-        <div class="key right_ring toPress">L</div>
+        <div class="key right_ring">L</div>
         <div class="key right_small">;</div>
         <div class="key right_small">'</div>
         <div class="key right_small return">Enter</div>
@@ -101,14 +101,16 @@ ob_start(); ?>
         <div class="key right_small">←</div>
         <div class="key right_small">↓</div>
         <div class="key right_small">→</div>
-
     </div>
 
-    <div id="imageContainer" >
-        <img id="backgroundImage" src="assets/src/pic/tarcza.png" alt="Tło" style="width: 100%; height: 100%;">
+    <div id="imageContainer" style="display: inline-block; margin-left: 25%; border: none">
+        <img id="backgroundImage" src="assets/src/pic/img.png" alt="Tło" style="width: 100%; height: 100%;">
         <img id="overlayImage" src="assets/src/pic/wskazowka.png" alt="Wskazówka" style="width: 100%; height: 100%;">
     </div>
 
+    <div style="display: inline-block; vertical-align: top; margin-top: 35px; margin-left: 30px">
+        <p id="typingSpeedDisplay">Current typing speed: 0 keys per second</p>
+    </div>
 
 
 </body>
@@ -335,8 +337,6 @@ ob_start(); ?>
         if (event.key === 'Alt') {
             pressedKey = 'Alt';
         }
-
-
 
         keys.forEach(keyElement => {
             if (keyElement.innerText === pressedKey) {
