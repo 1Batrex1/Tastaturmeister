@@ -19,11 +19,12 @@ class CourseController
 
     public function indexAction(Templating $templating, Router $router): ?string
     {
-        $html = $templating->render('test/test.html.php', [
-
-            'router' => $router,
+        $courses = (new \App\Model\Course)->findAll();
+        $html = $templating->render('course/index.html.php',[
+            'courses' => $courses,
+            'router' => $router
         ]);
-        return $html;
+        return  $html;
     }
 
     public function showAction(Templating  $templating,Router $router) :string
