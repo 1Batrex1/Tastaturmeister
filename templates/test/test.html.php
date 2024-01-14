@@ -517,6 +517,51 @@ ob_start(); ?>
         }
     }
 
+
+    /*prędkość pisania*/
+    let keyPressTimes = 0;
+
+
+
+    const actualdata=  Date.now();
+
+    function calculateTypingSpeed() {
+        let newData = (Date.now()-actualdata)/1000;
+        keyPressTimes+=1;
+
+        const typingSpeed = keyPressTimes / newData;
+        return typingSpeed;
+    }
+
+    function updateTypingSpeedDisplay() {
+        const speed = calculateTypingSpeed();
+        const displayElement = document.getElementById("typingSpeedDisplay");
+
+        let color;
+
+        if (speed >= 5) {
+            color = "green";
+        } else if (speed >= 2) {
+            color = "#b86e14";
+        } else {
+            color = "red";
+        }
+
+        displayElement.textContent = `Current typing speed: ${speed.toFixed(2)} keys per second`;
+        displayElement.style.color = color;
+    }
+
+    function onKeyPress(event) {
+        if (event.type === "keydown") {
+            updateTypingSpeedDisplay();
+        }
+    }
+
+    document.addEventListener("keydown", onKeyPress);
+
+
+
+
 </script>
 
 
