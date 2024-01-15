@@ -1,17 +1,15 @@
 <?php
 
-/** @var \App\Model\Course $course*/
+/** @var \App\Model\Course $course */
 /** @var \App\Service\Router $router */
 
 $title = 'Course';
 $bodyClass = "edit";
 
-if (!isset($_COOKIE['courseProgress']))
-{
+if (!isset($_COOKIE['courseProgress'])) {
     $coursesProgress = (new App\Model\Course)->findAll();
     $isDoneTable = [];
-    foreach ($coursesProgress as $courseProgress)
-    {
+    foreach ($coursesProgress as $courseProgress) {
         $isDoneTable[$courseProgress->getCourseId()] = 0;
     }
 
@@ -21,18 +19,17 @@ if (!isset($_COOKIE['courseProgress']))
 
 ob_start(); ?>
 
-<head>
-    <title>Test</title>
-</head>
+    <head>
+        <title>Test</title>
+    </head>
 
-<body>
+    <body>
     <h1>
         Przepisz poniższy tekst:
     </h1>
 
 
-
-    <div id="text"><?= $course->getCourseText()?></div>
+    <div id="text"><?= $course->getCourseText() ?></div>
     <br>
     <textarea id="text-input" type="text" placeholder="Wpisuj tutaj..."></textarea>
 
@@ -113,456 +110,451 @@ ob_start(); ?>
     </div>
 
 
-</body>
+    </body>
 
-<style>
-    h1 {
-        margin-bottom: 20px;
-        color: saddlebrown;
-    }
-    body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #555555;
-    }
+    <style>
+        h1 {
+            margin-bottom: 20px;
+            color: saddlebrown;
+        }
 
-    textarea {
-        width: 1000px;
-        height: 100px;
-        margin-bottom: 10px;
-        border: 2px solid #8B4513;
-        border-radius: 10px;
-        background-color: #ecf0f1;
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #555555;
+        }
 
-    }
+        textarea {
+            width: 1000px;
+            height: 100px;
+            margin-bottom: 10px;
+            border: 2px solid #8B4513;
+            border-radius: 10px;
+            background-color: #ecf0f1;
 
-    div {
-        border: 2px solid #8B4513;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        background-color: #ecf0f1;
+        }
 
-    }
+        div {
+            border: 2px solid #8B4513;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ecf0f1;
 
-    .keyboard {
-        display: grid;
-        grid-template-columns: repeat(15, 1fr);
-        grid-gap: 8px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        margin-right: -20px;
+        }
 
-    }
+        .keyboard {
+            display: grid;
+            grid-template-columns: repeat(15, 1fr);
+            grid-gap: 8px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-right: -20px;
 
-    .key {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 40px;
-        border: 3px solid grey;
-        border-radius: 5px;
-        background-color: #fff;
-        font-size: 14px;
+        }
 
-    }
+        .key {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            border: 3px solid grey;
+            border-radius: 5px;
+            background-color: #fff;
+            font-size: 14px;
 
-    .key.delete {
-        grid-column: span 3;
-    }
+        }
 
-    .key.capslock, .key.return, .key.shift, .key.tab, .key.ctrl {
-        grid-column: span 2;
-    }
+        .key.delete {
+            grid-column: span 3;
+        }
 
-    .key.space {
-        grid-column: span 5;
-    }
-    .key.left_small{
-        background-color: #fff69b;
-    }
-    .key.left_ring{
-        background-color: yellowgreen;
-    }
-    .key.left_middle{
-        background-color: coral;
-    }
-    .key.left_pointing{
-        background-color: lightsteelblue;
-    }
+        .key.capslock, .key.return, .key.shift, .key.tab, .key.ctrl {
+            grid-column: span 2;
+        }
 
-    .key.right_small{
-        background-color: lightyellow;
-    }
-    .key.right_ring{
-        background-color: lightgreen;
-    }
-    .key.right_middle{
-        background-color: lightsalmon;
-    }
-    .key.right_pointing{
-        background-color: lightblue;
-    }
-    .key.thumb{
-        background-color: violet;
-    }
+        .key.space {
+            grid-column: span 5;
+        }
 
-    .key.pressed {
-        background-color: black;
-        color: white;
-    }
+        .key.left_small {
+            background-color: #fff69b;
+        }
 
-    .key.toPress {
-        background-color: white;
-        color: black;
-    }
+        .key.left_ring {
+            background-color: yellowgreen;
+        }
 
-    /*prędkościomierz */
+        .key.left_middle {
+            background-color: coral;
+        }
 
-    #speedometer {
-        width: 100px;
-        height: 50px;
-        background-color: #3498db;
-        position: relative;
-        transition: left 0.2s ease;
-    }
-    #imageContainer {
-        position: relative;
-        width: 100px;
-        height: 100px;
-        margin-top: 20px;
-    }
+        .key.left_pointing {
+            background-color: lightsteelblue;
+        }
 
-    #backgroundImage {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
+        .key.right_small {
+            background-color: lightyellow;
+        }
 
-    #overlayImage {
-        position: absolute;
-        top: 10px;
-        left: 2px;
-        width: 100%;
-        height: 100%;
-        transform: rotate(150deg);
-        /*transition: transform 0.5s ease;*/
+        .key.right_ring {
+            background-color: lightgreen;
+        }
 
-    }
+        .key.right_middle {
+            background-color: lightsalmon;
+        }
+
+        .key.right_pointing {
+            background-color: lightblue;
+        }
+
+        .key.thumb {
+            background-color: violet;
+        }
+
+        .key.pressed {
+            background-color: black;
+            color: white;
+        }
+
+        .key.toPress {
+            background-color: white;
+            color: black;
+        }
+
+        /*prędkościomierz */
+
+        #speedometer {
+            width: 100px;
+            height: 50px;
+            background-color: #3498db;
+            position: relative;
+            transition: left 0.2s ease;
+        }
+
+        #imageContainer {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin-top: 20px;
+        }
+
+        #backgroundImage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #overlayImage {
+            position: absolute;
+            top: 10px;
+            left: 2px;
+            width: 100%;
+            height: 100%;
+            transform: rotate(150deg);
+            /*transition: transform 0.5s ease;*/
+
+        }
 
 
+    </style>
 
-</style>
 
+    <script>
+        const output = document.getElementById('shown-key');
+        const input = document.getElementById('text-input');
+        const text = document.getElementById('text');
+        const keys = document.querySelectorAll('.key');
+        const body = document.querySelector('body');
 
-<script>
-    const output = document.getElementById('shown-key');
-    const input = document.getElementById('text-input');
-    const text = document.getElementById('text');
-    const keys = document.querySelectorAll('.key');
-    const body = document.querySelector('body');
+        input.addEventListener('markButton', () => {
 
-    input.addEventListener('markButton', () => {
-
-    });
-    let accuracy = 0;
-    let counter  = 0;
-    let goodclicked = 0;
-    let proxyCounter = {counter};
-
-    window.onload = (event) => {
-        keys.forEach(keyElement => {
-            if (keyElement.innerText === text.innerText[0].toUpperCase()) {
-                keyElement.classList.add('toPress');
-            }
         });
+        let accuracy = 0;
+        let counter = 0;
+        let goodclicked = 0;
+        let proxyCounter = {counter};
 
-    };
-
-    const proxiedObject = new Proxy(proxyCounter, {
-        set: function (target, key, value) {
-            target[key] = value;
-            if (proxyCounter.counter >= text.innerText.length)
-            {
-                keys.forEach(keyElement => {
-                        keyElement.classList.remove('toPress');
-
-                });
-
-                return true
-            }
-            let output = "";
-            let output2 = "";
-
-            if (text.innerText[proxyCounter.counter-1] === ' ')
-            {
-
-                output2 = 'Space';
-            }
-            else{
-                output2 = text.innerText[proxyCounter.counter-1].toUpperCase();
-
-            }
-            if (text.innerText[proxyCounter.counter] === ' ')
-            {
-
-                output = 'Space';
-            }
-            else
-            {
-                output = text.innerText[proxyCounter.counter].toUpperCase();
-            }
+        window.onload = (event) => {
             keys.forEach(keyElement => {
-                if (keyElement.innerText === output2) {
-                    keyElement.classList.remove('toPress');
-                }
-            });
-            keys.forEach(keyElement => {
-                if (keyElement.innerText === output) {
+                if (keyElement.innerText === text.innerText[0].toUpperCase()) {
                     keyElement.classList.add('toPress');
                 }
             });
-            return true;
-        },
-    });
 
+        };
 
+        const proxiedObject = new Proxy(proxyCounter, {
+            set: function (target, key, value) {
+                target[key] = value;
+                if (proxyCounter.counter >= text.innerText.length) {
+                    keys.forEach(keyElement => {
+                        keyElement.classList.remove('toPress');
 
+                    });
 
-    input.addEventListener('keyup', (event) => {
+                    return true
+                }
+                let output = "";
+                let output2 = "";
 
-        if (event.key === "Backspace" || event.key === "Shift")
-        {
-            return;
-        }
-        proxiedObject.counter = counter + 1;
+                if (text.innerText[proxyCounter.counter - 1] === ' ') {
 
-        if (counter >= text.innerText.length)
-        {
-            accuracy = goodclicked / text.innerText.length;
-            console.log(`Accuracy:${accuracy}`);
-            return;
-        }
-        if (event.key === text.innerText[counter])
-        {
-            goodclicked++;
-        }
-        counter ++;
+                    output2 = 'Space';
+                } else {
+                    output2 = text.innerText[proxyCounter.counter - 1].toUpperCase();
 
-    });
+                }
+                if (text.innerText[proxyCounter.counter] === ' ') {
 
-
-
-    document.addEventListener('keydown', highlightKey);
-    document.addEventListener('keyup', unhighlightKey);
-
-
-    if (!document.hasFocus()) {
-        removePressedClass();
-    }
-
-
-    function removePressedClass() {
-        keys.forEach(function(key) {
-            key.classList.remove('pressed');
+                    output = 'Space';
+                } else {
+                    output = text.innerText[proxyCounter.counter].toUpperCase();
+                }
+                keys.forEach(keyElement => {
+                    if (keyElement.innerText === output2) {
+                        keyElement.classList.remove('toPress');
+                    }
+                });
+                keys.forEach(keyElement => {
+                    if (keyElement.innerText === output) {
+                        keyElement.classList.add('toPress');
+                    }
+                });
+                return true;
+            },
         });
-    }
 
 
+        input.addEventListener('keyup', (event) => {
 
-    function highlightKey(event) {
-        let pressedKey;
-        if (event.key) {
-            pressedKey = event.key.toUpperCase();
-        }
-        if (event.code === 'Space') {
-            pressedKey = 'Space';
-        }
-        if (event.code === 'Tab') {
-            pressedKey = 'Tab';
-        }
-        if (event.code === 'CapsLock') {
-            pressedKey = 'CapsLock';
-        }
-        if (event.code === 'Enter') {
-            pressedKey = 'Enter';
-        }
-        if (event.key === 'Shift') {
-            pressedKey = 'Shift';
-        }
-        if (event.key === 'ArrowUp') {
-            pressedKey = '↑';
-        }
-        if (event.key === 'ArrowDown') {
-            pressedKey = '↓';
-        }
-        if (event.key === 'ArrowLeft') {
-            pressedKey = '←';
-        }
-        if (event.key === 'ArrowRight') {
-            pressedKey = '→';
-        }
-        if (event.key === 'Backspace') {
-            pressedKey = 'Delete';
-        }
-        if (event.key === 'Control') {
-            pressedKey = 'Ctrl';
-        }
-        if (event.key === 'Alt') {
-            pressedKey = 'Alt';
-        }
-
-        keys.forEach(keyElement => {
-            if (keyElement.innerText === pressedKey) {
-                keyElement.classList.add('pressed');
+            if (event.key === "Backspace" || event.key === "Shift" || event.key === "CapsLock" || event.key === "Tab" || event.key === "Enter" || event.key === "Control" || event.key === "Alt" || event.key === "ArrowUp" || event.key === "ArrowDown" || event.key === "ArrowLeft" || event.key === "ArrowRight" || event.key === "Delete") {
+                return;
             }
-        });
-    }
+            proxiedObject.counter = counter + 1;
 
-    function unhighlightKey(event) {
-        let releasedKey;
-        if(event.code === 'ControlLeft' || event.code === 'ControlRight') {
-            releasedKey = 'Ctrl';
-        }
-        if (event.key) {
-            releasedKey = event.key.toUpperCase();
-        }
-        if (event.altKey) {
-            releasedKey = 'Alt';
-        }
-        if (event.code === 'Space') {
-            releasedKey = 'Space';
-        }
-        if (event.code === 'Tab') {
-            releasedKey = 'Tab';
-        }
-        if (event.code === 'CapsLock') {
-            releasedKey = 'CapsLock';
-        }
-        if (event.code === 'Enter') {
-            releasedKey = 'Enter';
-        }
-        if (event.key === 'Shift') {
-            releasedKey = 'Shift';
-        }
-        if (event.key === 'ArrowUp') {
-            releasedKey = '↑';
-        }
-        if (event.key === 'ArrowDown') {
-            releasedKey = '↓';
-        }
-        if (event.key === 'ArrowLeft') {
-            releasedKey = '←';
-        }
-        if (event.key === 'ArrowRight') {
-            releasedKey = '→';
-        }
-        if (event.key === 'Backspace') {
-            releasedKey = 'Delete';
-        }
-        if (event.key === 'Control') {
-            releasedKey = 'Ctrl';
-        }
-        if (event.key === 'Alt') {
-            releasedKey = 'Alt';
-        }
-
-        keys.forEach(keyElement => {
-            if (keyElement.innerText === releasedKey) {
-                keyElement.classList.remove('pressed');
+            if (counter >= text.innerText.length-1) {
+                goodclicked++;
+                accuracy = goodclicked / text.innerText.length;
+                alert("Accuracy :" + (accuracy * 100).toFixed(2) + " %\nMistakes: " + (text.innerText.length - goodclicked));
+                location.href = "<?= $router->generatePath('course-index') ?>";
+                return;
             }
+            if (event.key === text.innerText[counter]) {
+                goodclicked++;
+            }
+            counter++;
+
         });
-    }
-
-    /*prędkościomierz*/
-
-    let totalRotation = 150; //Początkowa rotacja
-    const rotationInterval = 10; // Co ile milisekundobniżać kąt
-    const rotationAmount = 1; // O ile stopni obniżać kąt przykażdym interwal
-    const minRotation = 150; // Minimalny kąt obrotu
-    const maxRotation = 375; // Maksymalny kąt obrotu
-    const overlayImage = document.getElementById('overlayImage');
-
-    document.addEventListener('keydown', function() {
-        rotateOverlayImage();
-    });
-
-    setInterval(function() {
-        autoRotateOverlayImage();
-    }, rotationInterval);
-
-    function rotateOverlayImage() {
-        totalRotation += 20; // Dodaj 20 stopni przy każdym naciśnięciu (możesz dostosować)
-        checkBounds();
-        overlayImage.style.transform = `rotate(${totalRotation}deg)`;
-    }
-
-    function autoRotateOverlayImage() {
-        totalRotation -= rotationAmount; // Odejmij kąt obrotu
-        checkBounds();
-        overlayImage.style.transform = `rotate(${totalRotation}deg)`;
-    }
-
-    function checkBounds() {
-        if (totalRotation < minRotation) {
-            totalRotation = minRotation;
-        } else if (totalRotation > maxRotation) {
-            totalRotation = maxRotation;
-        }
-    }
 
 
-    /*prędkość pisania*/
-    let keyPressTimes = 0;
+        document.addEventListener('keydown', highlightKey);
+        document.addEventListener('keyup', unhighlightKey);
 
 
-
-    const actualdata=  Date.now();
-
-    function calculateTypingSpeed() {
-        let newData = (Date.now()-actualdata)/1000;
-        keyPressTimes+=1;
-
-        const typingSpeed = keyPressTimes / newData;
-        return typingSpeed;
-    }
-
-    function updateTypingSpeedDisplay() {
-        const speed = calculateTypingSpeed();
-        const displayElement = document.getElementById("typingSpeedDisplay");
-
-        let color;
-
-        if (speed >= 5) {
-            color = "green";
-        } else if (speed >= 2) {
-            color = "#b86e14";
-        } else {
-            color = "red";
+        if (!document.hasFocus()) {
+            removePressedClass();
         }
 
-        displayElement.textContent = `Current typing speed: ${speed.toFixed(2)} keys per second`;
-        displayElement.style.color = color;
-    }
 
-    function onKeyPress(event) {
-        if (event.type === "keydown") {
-            updateTypingSpeedDisplay();
+        function removePressedClass() {
+            keys.forEach(function (key) {
+                key.classList.remove('pressed');
+            });
         }
-    }
-
-    document.addEventListener("keydown", onKeyPress);
 
 
+        function highlightKey(event) {
+            let pressedKey;
+            if (event.key) {
+                pressedKey = event.key.toUpperCase();
+            }
+            if (event.code === 'Space') {
+                pressedKey = 'Space';
+            }
+            if (event.code === 'Tab') {
+                pressedKey = 'Tab';
+            }
+            if (event.code === 'CapsLock') {
+                pressedKey = 'CapsLock';
+            }
+            if (event.code === 'Enter') {
+                pressedKey = 'Enter';
+            }
+            if (event.key === 'Shift') {
+                pressedKey = 'Shift';
+            }
+            if (event.key === 'ArrowUp') {
+                pressedKey = '↑';
+            }
+            if (event.key === 'ArrowDown') {
+                pressedKey = '↓';
+            }
+            if (event.key === 'ArrowLeft') {
+                pressedKey = '←';
+            }
+            if (event.key === 'ArrowRight') {
+                pressedKey = '→';
+            }
+            if (event.key === 'Backspace') {
+                pressedKey = 'Delete';
+            }
+            if (event.key === 'Control') {
+                pressedKey = 'Ctrl';
+            }
+            if (event.key === 'Alt') {
+                pressedKey = 'Alt';
+            }
+
+            keys.forEach(keyElement => {
+                if (keyElement.innerText === pressedKey) {
+                    keyElement.classList.add('pressed');
+                }
+            });
+        }
+
+        function unhighlightKey(event) {
+            let releasedKey;
+            if (event.code === 'ControlLeft' || event.code === 'ControlRight') {
+                releasedKey = 'Ctrl';
+            }
+            if (event.key) {
+                releasedKey = event.key.toUpperCase();
+            }
+            if (event.altKey) {
+                releasedKey = 'Alt';
+            }
+            if (event.code === 'Space') {
+                releasedKey = 'Space';
+            }
+            if (event.code === 'Tab') {
+                releasedKey = 'Tab';
+            }
+            if (event.code === 'CapsLock') {
+                releasedKey = 'CapsLock';
+            }
+            if (event.code === 'Enter') {
+                releasedKey = 'Enter';
+            }
+            if (event.key === 'Shift') {
+                releasedKey = 'Shift';
+            }
+            if (event.key === 'ArrowUp') {
+                releasedKey = '↑';
+            }
+            if (event.key === 'ArrowDown') {
+                releasedKey = '↓';
+            }
+            if (event.key === 'ArrowLeft') {
+                releasedKey = '←';
+            }
+            if (event.key === 'ArrowRight') {
+                releasedKey = '→';
+            }
+            if (event.key === 'Backspace') {
+                releasedKey = 'Delete';
+            }
+            if (event.key === 'Control') {
+                releasedKey = 'Ctrl';
+            }
+            if (event.key === 'Alt') {
+                releasedKey = 'Alt';
+            }
+
+            keys.forEach(keyElement => {
+                if (keyElement.innerText === releasedKey) {
+                    keyElement.classList.remove('pressed');
+                }
+            });
+        }
+
+        /*prędkościomierz*/
+
+        let totalRotation = 150; //Początkowa rotacja
+        const rotationInterval = 10; // Co ile milisekundobniżać kąt
+        const rotationAmount = 1; // O ile stopni obniżać kąt przykażdym interwal
+        const minRotation = 150; // Minimalny kąt obrotu
+        const maxRotation = 375; // Maksymalny kąt obrotu
+        const overlayImage = document.getElementById('overlayImage');
+
+        document.addEventListener('keydown', function () {
+            rotateOverlayImage();
+        });
+
+        setInterval(function () {
+            autoRotateOverlayImage();
+        }, rotationInterval);
+
+        function rotateOverlayImage() {
+            totalRotation += 20; // Dodaj 20 stopni przy każdym naciśnięciu (możesz dostosować)
+            checkBounds();
+            overlayImage.style.transform = `rotate(${totalRotation}deg)`;
+        }
+
+        function autoRotateOverlayImage() {
+            totalRotation -= rotationAmount; // Odejmij kąt obrotu
+            checkBounds();
+            overlayImage.style.transform = `rotate(${totalRotation}deg)`;
+        }
+
+        function checkBounds() {
+            if (totalRotation < minRotation) {
+                totalRotation = minRotation;
+            } else if (totalRotation > maxRotation) {
+                totalRotation = maxRotation;
+            }
+        }
 
 
-</script>
+        /*prędkość pisania*/
+        let keyPressTimes = 0;
+
+
+        const actualdata = Date.now();
+
+        function calculateTypingSpeed() {
+            let newData = (Date.now() - actualdata) / 1000;
+            keyPressTimes += 1;
+
+            const typingSpeed = keyPressTimes / newData;
+            return typingSpeed;
+        }
+
+        function updateTypingSpeedDisplay() {
+            const speed = calculateTypingSpeed();
+            const displayElement = document.getElementById("typingSpeedDisplay");
+
+            let color;
+
+            if (speed >= 5) {
+                color = "green";
+            } else if (speed >= 2) {
+                color = "#b86e14";
+            } else {
+                color = "red";
+            }
+
+            displayElement.textContent = `Current typing speed: ${speed.toFixed(2)} keys per second`;
+            displayElement.style.color = color;
+        }
+
+        function onKeyPress(event) {
+            if (event.type === "keydown") {
+                updateTypingSpeedDisplay();
+            }
+        }
+
+        document.addEventListener("keydown", onKeyPress);
+
+
+    </script>
 
 
 <?php $main = ob_get_clean();
