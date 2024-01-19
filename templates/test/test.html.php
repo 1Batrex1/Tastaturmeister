@@ -29,12 +29,15 @@ ob_start(); ?>
     </h1>
 
 
+
     <div id="text"><?= $course->getCourseText() ?></div>
     <br>
     <textarea id="text-input" type="text" placeholder="Wpisuj tutaj..."></textarea>
 
     <br>
     <p id='shown-key'>No key detected</p>
+
+    <button id="changeLayoutButton">Change Layout</button>
 
     <div class="keyboard">
         <div class="key left_small">1</div>
@@ -109,6 +112,11 @@ ob_start(); ?>
         <p id="typingSpeedDisplay">Current typing speed: 0 keys per second</p>
     </div>
 
+    <audio id="key-sound">
+        <source src="assets/src/sound/dzwiek.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag.
+    </audio>
+
 
     </body>
 
@@ -181,40 +189,77 @@ ob_start(); ?>
             grid-column: span 5;
         }
 
-        .key.left_small {
-            background-color: #fff69b;
+
+        .keyboard.style1 .key.left_small {
+                background-color: #fff69b;
+            }
+
+        .keyboard.style1 .key.left_ring {
+                background-color: yellowgreen;
+            }
+
+        .keyboard.style1 .key.left_middle {
+                background-color: coral;
+            }
+
+        .keyboard.style1 .key.left_pointing {
+                background-color: lightsteelblue;
+            }
+
+        .keyboard.style1 .key.right_small {
+                background-color: lightyellow;
+            }
+
+        .keyboard.style1 .key.right_ring {
+                background-color: lightgreen;
+            }
+
+        .keyboard.style1 .key.right_middle {
+                background-color: lightsalmon;
+            }
+
+        .keyboard.style1 .key.right_pointing {
+                background-color: lightblue;
+            }
+
+        .keyboard.style1 .key.thumb {
+            background-color: violet;
         }
 
-        .key.left_ring {
-            background-color: yellowgreen;
-        }
-
-        .key.left_middle {
-            background-color: coral;
-        }
-
-        .key.left_pointing {
-            background-color: lightsteelblue;
-        }
-
-        .key.right_small {
-            background-color: lightyellow;
-        }
-
-        .key.right_ring {
-            background-color: lightgreen;
-        }
-
-        .key.right_middle {
+        .keyboard.style2 .key.left_small {
             background-color: lightsalmon;
         }
 
-        .key.right_pointing {
+        .keyboard.style2 .key.left_ring {
+            background-color: lightsteelblue;
+        }
+
+        .keyboard.style2 .key.left_middle {
             background-color: lightblue;
         }
 
-        .key.thumb {
+        .keyboard.style2 .key.left_pointing {
+            background-color: lightyellow;
+        }
+
+        .keyboard.style2 .key.right_small {
+            background-color: yellowgreen;
+        }
+
+        .keyboard.style2 .key.right_ring {
+            background-color: coral;
+        }
+
+        .keyboard.style2 .key.right_middle {
+            background-color: #fff69b;
+        }
+
+        .keyboard.style2 .key.right_pointing {
             background-color: violet;
+        }
+
+        .keyboard.style2 .key.thumb {
+            background-color: lightgreen;
         }
 
         .key.pressed {
@@ -474,6 +519,39 @@ ob_start(); ?>
                 }
             });
         }
+
+        function handleKeyPress(event) {
+            var audio = document.getElementById('key-sound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play();
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const changeLayoutButton = document.getElementById('changeLayoutButton');
+            const keyboard = document.querySelector('.keyboard');
+
+            const layouts = [
+                'style1',
+                'style2',
+            ];
+
+            let currentLayoutIndex = 0;
+
+            function applyLayout() {
+                const currentLayout = layouts[currentLayoutIndex];
+                keyboard.className = `keyboard ${currentLayout}`;
+            }
+
+            applyLayout();
+
+            changeLayoutButton.addEventListener('click', function () {
+                currentLayoutIndex = (currentLayoutIndex + 1) % layouts.length;
+                applyLayout();
+            });
+        });
+
+        document.addEventListener('keypress', handleKeyPress);
 
         /*prędkościomierz*/
 
