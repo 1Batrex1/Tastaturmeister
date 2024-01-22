@@ -113,6 +113,15 @@ class CourseController
         return $html;
     }
 
+    public function ownTextAction(Templating $templating, Router $router): ?string
+    {
+        $html = $templating->render('test/owntext.html.php', [
+            'router' => $router,
+        ]);
+        return $html;
+    }
+
+
 
 
 

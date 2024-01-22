@@ -17,14 +17,8 @@ if (!isset($_COOKIE['courseProgress'])) {
 
 }
 
-if ($course->getCourseText() == null) {
 
-} else {
-
-}
-
-
-    ob_start(); ?>
+ob_start(); ?>
 
     <head>
         <title>Test</title>
@@ -32,17 +26,19 @@ if ($course->getCourseText() == null) {
 
     <body>
     <h1>
-        Przepisz poniższy tekst:
+        Ćwicz pisownię własnego tekstu
     </h1>
 
 
 
-    <div id="text"><?= $course->getCourseText() ?></div>
+    <textarea id="own-text" placeholder="Wpisz tekst, który później przepiszesz"></textarea>
+    <div id="text"></div>
+    <button id="setTextButton" style="margin: 0; top: 50%; transform: translateY(-50%);">Ustaw tekst</button>
     <br>
     <textarea id="text-input" type="text" placeholder="Wpisuj tutaj..."></textarea>
 
     <br>
-    <button id="changePageLayout">Change Page Layout</button>
+
     <button id="changeLayoutButton">Change Layout</button>
 
     <div class="keyboard">
@@ -168,7 +164,6 @@ if ($course->getCourseText() == null) {
             background-color: transparent;
         }
 
-
         .keyboard {
             display: grid;
             grid-template-columns: repeat(15, 1fr);
@@ -177,18 +172,6 @@ if ($course->getCourseText() == null) {
             margin-bottom: 20px;
             margin-right: -20px;
 
-        }
-
-        .alternative-layout .key {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 40px;
-            border: 10px #6d6d6d;
-            border-radius: 5px;
-            background-color: #fff;
-            font-size: 14px;
-            color: black
         }
 
         .key {
@@ -200,6 +183,7 @@ if ($course->getCourseText() == null) {
             border-radius: 5px;
             background-color: #fff;
             font-size: 14px;
+
         }
 
         .key.delete {
@@ -216,36 +200,36 @@ if ($course->getCourseText() == null) {
 
 
         .keyboard.style1 .key.left_small {
-                background-color: #fff69b;
-            }
+            background-color: #fff69b;
+        }
 
         .keyboard.style1 .key.left_ring {
-                background-color: yellowgreen;
-            }
+            background-color: yellowgreen;
+        }
 
         .keyboard.style1 .key.left_middle {
-                background-color: coral;
-            }
+            background-color: coral;
+        }
 
         .keyboard.style1 .key.left_pointing {
-                background-color: lightsteelblue;
-            }
+            background-color: lightsteelblue;
+        }
 
         .keyboard.style1 .key.right_small {
-                background-color: lightyellow;
-            }
+            background-color: lightyellow;
+        }
 
         .keyboard.style1 .key.right_ring {
-                background-color: lightgreen;
-            }
+            background-color: lightgreen;
+        }
 
         .keyboard.style1 .key.right_middle {
-                background-color: lightsalmon;
-            }
+            background-color: lightsalmon;
+        }
 
         .keyboard.style1 .key.right_pointing {
-                background-color: lightblue;
-            }
+            background-color: lightblue;
+        }
 
         .keyboard.style1 .key.thumb {
             background-color: violet;
@@ -411,6 +395,32 @@ if ($course->getCourseText() == null) {
                 audio.play();
             }
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const owntext = document.getElementById('own-text');
+            const setTextButton = document.getElementById('setTextButton');
+            const text = document.getElementById('text');
+            const input = document.getElementById('text-input');
+
+            text.hidden = true;
+            input.hidden = true;
+
+            setTextButton.addEventListener('click', function () {
+                owntext.remove();
+                setTextButton.remove();
+                input.hidden = false;
+                text.innerText = owntext.value;
+                owntext.value = '';
+                text.hidden = false;
+                counter = 0;
+                goodclicked = 0;
+                accuracy = 0;
+                proxyCounter.counter = 0;
+            });
+
+
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             const changeLayoutButton = document.getElementById('changeLayoutButton');
             const keyboard = document.querySelector('.keyboard');
@@ -433,12 +443,6 @@ if ($course->getCourseText() == null) {
                 currentLayoutIndex = (currentLayoutIndex + 1) % layouts.length;
                 applyLayout();
             });
-        });
-        document.body.classList.toggle('alternative-layout');
-
-        document.getElementById('changePageLayout').addEventListener('click', function() {
-            document.body.classList.toggle('alternative-layout');
-            document.body.classList.toggle('default-layout');
         });
 
 
