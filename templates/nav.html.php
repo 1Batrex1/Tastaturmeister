@@ -2,20 +2,39 @@
 /** @var $router \App\Service\Router */
 
 ?>
-
-<script>
-
-    function resetProgress() {
-        if (confirm('Are you sure you want to reset your progress?')) {
-            document.cookie = "courseProgress=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            alert('Progress has been reset.');
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
         }
-    }
 
-    window.addEventListener('load', function () {
-        document.getElementById('reset').addEventListener('click', resetProgress);
-    });
-</script>
+        .dropdown a {
+            text-decoration: none;
+            color: black;
+            padding: 10px;
+            display: block;
+        }
+
+        .dropdown ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            z-index: 1;
+        }
+
+        .dropdown ul li {
+            padding: 10px;
+            text-align: left;
+        }
+        .dropdown:hover ul {
+            display: block;
+        }
+    </style>
+
 <ul>
     <li><a id= "home" href="<?= $router->generatePath('') ?>">Home</a></li>
     <li ><a id="courses" href="<?= $router->generatePath('courses-index') ?>">Courses</a></li>

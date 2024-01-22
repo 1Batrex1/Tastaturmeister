@@ -31,15 +31,16 @@ if ($course->getCourseText() == null) {
     </head>
 
     <body>
-    <h1>
-        Przepisz poniższy tekst:
+
+    <h1 id="Rewrite this text">
+        Rewrite this text:
     </h1>
 
 
 
     <div id="text"><?= $course->getCourseText() ?></div>
     <br>
-    <textarea id="text-input" type="text" placeholder="Wpisuj tutaj..."></textarea>
+    <textarea id="text-input" type="text" placeholder="Input here..."></textarea>
 
     <br>
     <button id="changePageLayout">Change Page Layout</button>
@@ -699,6 +700,8 @@ if ($course->getCourseText() == null) {
         }
 
         document.addEventListener("keydown", onKeyPress);
+
+
 
 
     </script>
