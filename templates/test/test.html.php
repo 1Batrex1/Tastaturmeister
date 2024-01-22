@@ -127,12 +127,12 @@ if ($course->getCourseText() == null) {
     </body>
 
     <style>
-        h1 {
+        .default-layout h1 {
             margin-bottom: 20px;
             color: saddlebrown;
         }
 
-        body {
+        .default-layout body {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -142,23 +142,57 @@ if ($course->getCourseText() == null) {
             background-color: #555555;
         }
 
-        textarea {
+        .default-layout textarea {
             width: 1000px;
             height: 100px;
             margin-bottom: 10px;
             border: 2px solid #8B4513;
             border-radius: 10px;
             background-color: #ecf0f1;
-
         }
 
-        div {
+        .default-layout div {
             border: 2px solid #8B4513;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             background-color: #ecf0f1;
+        }
 
+        .alternative-layout h1 {
+            margin-bottom: 20px;
+            color: purple;
+            font-family: Georgia, serif;
+            text-align: left;
+        }
+
+        .alternative-layout body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ecf0f1;
+        }
+
+        .alternative-layout textarea {
+            width: 1000px;
+            height: 100px;
+            margin-bottom: 10px;
+            border: 2px solid purple;
+            border-radius: 10px;
+            background-color: black;
+            color: white;
+        }
+
+        .alternative-layout div {
+            border: 2px solid purple;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: black;
+            color: white
         }
 
         div.dropdown {
