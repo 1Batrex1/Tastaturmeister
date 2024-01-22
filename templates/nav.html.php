@@ -37,4 +37,70 @@
     </li>
 
 </ul>
+
+    <script>
+
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset your progress?')) {
+                document.cookie = "courseProgress=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                alert('Progress has been reset.');
+            }
+        }
+
+        window.addEventListener('load', function () {
+            document.getElementById('reset').addEventListener('click', resetProgress);
+        });
+
+
+
+        /*tłumaczenie*/
+
+        const languages = {
+            pl: {
+                home: "Strona Główna",
+                courses: "Kursy",
+                login: "Admin",
+                own: "Własny tekst",
+                reset: "Zresetuj postępy",
+                language: "Język"
+            },
+            en: {
+                home: "Home",
+                courses: "Courses",
+                login: "Admin",
+                own: "Own Text",
+                reset: "Reset progress",
+                language: "language"
+            }
+        }
+
+
+        // Funkcja zmiany języka
+        function changeLanguage(lang) {
+            console.log(document.getElementById('home'))
+            localStorage.setItem("language",lang);
+            let currentLanguage = lang;
+            document.getElementById('home').innerText = languages[currentLanguage].home;
+            document.getElementById('courses').innerText = languages[currentLanguage].courses;
+            document.getElementById('login').innerText = languages[currentLanguage].login;
+            document.getElementById('own').innerText = languages[currentLanguage].own;
+            document.getElementById('reset').innerText = languages[currentLanguage].reset;
+            document.getElementById('language').innerText = languages[currentLanguage].language;
+        }
+
+
+        window.onload = () =>
+        {
+          if (localStorage.getItem("language") !== null)
+          {
+              changeLanguage(localStorage.getItem("language"));
+          }
+          else
+          {
+              changeLanguage("en");
+          }
+        };
+    </script>
+
+
 <?php

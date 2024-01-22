@@ -96,6 +96,10 @@ switch ($action) {
         $controller = new App\Controller\CourseController();
         $view = $controller->trainAction($_REQUEST['id'],$templating,$router);
         break;
+    case 'own-text':
+        $controller = new App\Controller\CourseController();
+        $view = $controller->ownTextAction($templating,$router);
+        break;
     default:
         $view = 'Not found';
         break;
